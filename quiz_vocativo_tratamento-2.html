@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz: Vocativo ou Tratamento?</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; background-color: #f9f9f9; }
+    h1 { text-align: center; color: #333; }
+    .question { margin-bottom: 1.5rem; }
+    .question p { font-weight: bold; }
+    button { margin-top: 1rem; padding: 0.5rem 1rem; font-size: 1rem; }
+    .result { margin-top: 2rem; font-size: 1.2rem; font-weight: bold; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Quiz: Vocativo ou Tratamento?</h1>
+  <form id="quizForm">
+    <div class="question">
+      <p>1. Encaminho o relatório solicitado a <strong>Vossa Senhoria</strong>.</p>
+      <label><input type="radio" name="q1" value="Tratamento"> Tratamento</label><br>
+      <label><input type="radio" name="q1" value="Vocativo"> Vocativo</label>
+    </div>
+
+    <div class="question">
+      <p>2. <strong>Senhora Secretária,</strong> solicito confirmação de presença na cerimônia.</p>
+      <label><input type="radio" name="q2" value="Tratamento"> Tratamento</label><br>
+      <label><input type="radio" name="q2" value="Vocativo"> Vocativo</label>
+    </div>
+
+    <div class="question">
+      <p>3. A <strong>Vossa Excelência</strong>, apresentamos nossos cumprimentos.</p>
+      <label><input type="radio" name="q3" value="Tratamento"> Tratamento</label><br>
+      <label><input type="radio" name="q3" value="Vocativo"> Vocativo</label>
+    </div>
+
+    <div class="question">
+      <p>4. <strong>Ilustríssimo Senhor Diretor,</strong> comunicamos que o evento foi transferido.</p>
+      <label><input type="radio" name="q4" value="Tratamento"> Tratamento</label><br>
+      <label><input type="radio" name="q4" value="Vocativo"> Vocativo</label>
+    </div>
+
+    <div class="question">
+      <p>5. Solicitamos à <strong>Vossa Magnificência</strong> reconsideração quanto ao pedido de prorrogação.</p>
+      <label><input type="radio" name="q5" value="Tratamento"> Tratamento</label><br>
+      <label><input type="radio" name="q5" value="Vocativo"> Vocativo</label>
+    </div>
+
+    <button type="button" onclick="checkAnswers()">Verificar Respostas</button>
+  </form>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    function checkAnswers() {
+      const answers = {
+        q1: "Tratamento",
+        q2: "Vocativo",
+        q3: "Tratamento",
+        q4: "Vocativo",
+        q5: "Tratamento"
+      };
+
+      let score = 0;
+      let total = Object.keys(answers).length;
+      let feedback = "";
+
+      for (let key in answers) {
+        const selected = document.querySelector(`input[name="${key}"]:checked`);
+        if (selected) {
+          if (selected.value === answers[key]) {
+            score++;
+          } else {
+            feedback += `❌ Questão ${key.slice(1)}: Você marcou "${selected.value}", mas a resposta correta é "${answers[key]}".\n`;
+          }
+        } else {
+          feedback += `⚠️ Questão ${key.slice(1)}: Não respondida. A resposta correta é "${answers[key]}".\n`;
+        }
+      }
+
+      const resultText = `✅ Você acertou ${score} de ${total} perguntas.\n\n${feedback}`;
+      document.getElementById("result").innerText = resultText;
+    }
+  </script>
+</body>
+</html>
